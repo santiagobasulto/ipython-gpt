@@ -1,6 +1,6 @@
 # IPython ChatGPT extension
 
-This extension allows you to use ChatGPT directly from your Jupyter Notebook or IPython Shell.
+This extension allows you to use ChatGPT directly from your Jupyter Notebook or IPython Shell ([Demo](https://github.com/santiagobasulto/ipython-gpt/blob/master/Demo.ipynb)).
 
 <img width="900" alt="IPython GPT, a Jupyter/IPython interface for Chat GPT" src="https://user-images.githubusercontent.com/872296/232230454-44529ea4-920e-4294-9d61-550771a4a95e.png">
 
