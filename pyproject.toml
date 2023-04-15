@@ -3,6 +3,17 @@ name = "ipython-gpt"
 version = "0.0.1"
 description = "A Jupyter/IPython extension to use ChatGPT"
 authors = ["Santiago Basulto <santiago.basulto@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/santiagobasulto/ipython-gpt"
+repository = "https://github.com/santiagobasulto/ipython-gpt"
+keywords = ["ipython", "jupyter", "chatgpt", "openai"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Framework :: IPython",
+    "Programming Language :: Python",
+    "Topic :: Utilities",
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
