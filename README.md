@@ -2,6 +2,10 @@
 
 This extension allows you to use ChatGPT directly from your Jupyter Notebook or IPython Shell.
 
+<img width="900" alt="IPython GPT, a Jupyter/IPython interface for Chat GPT" src="https://user-images.githubusercontent.com/872296/232230454-44529ea4-920e-4294-9d61-550771a4a95e.png">
+
+<img width="900" alt="IPython GPT, a Jupyter/IPython interface for Chat GPT" src="https://user-images.githubusercontent.com/872296/232230492-9bc50342-9d78-4adb-8168-2f94fcbc3b73.png">
+
 **Important!** This is a very early and raw version, I have a lot of things to improve about the code and missing functionality.
 
 ## Installation
@@ -21,6 +25,8 @@ You must first generate an API key at OpenAI (https://platform.openai.com/accoun
 
 ```bash
 $ OPENAI_API_KEY=[YOUR-KEY] jupyter lab
+# ...
+$ OPENAI_API_KEY=[YOUR-KEY] ipython
 ```
 
 There are a few other ways to set the API KEY, but the envvar is the recommended one.
