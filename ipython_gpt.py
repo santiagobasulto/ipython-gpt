@@ -44,7 +44,7 @@ class IPythonGPT(Magics):
         display(Markdown(f"<div style='width:60%;margin-left:5%;overflow: scroll;max-height:500px'>\n\n{message}\n\n</div>"))
 
     def display_shell(self, message):
-        display(message)
+        print(message)
 
     def display(self, message):
         method_name = DISPLAY_METHODS.get(
