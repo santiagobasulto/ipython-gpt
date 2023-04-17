@@ -9,6 +9,7 @@ This extension allows you to use ChatGPT directly from your Jupyter Notebook or 
 **Important!** This is a very early and raw version, I have a lot of things to improve regarding code quality and missing functionality. Check [this issue](https://github.com/santiagobasulto/ipython-gpt/issues/4) for a rough "roadmap".
 
 ## Installation
+
 ```python
 !pip install ipython-gpt
 ```
@@ -35,7 +36,6 @@ There are a few other ways to set the API KEY, but the envvar is the recommended
 
 The command `%%chat` interfaces with ChatGPT. It accepts multiple parameters (see Usage). Here's an example:
 
-
 ```python
 %%chat --max-tokens=25
 
@@ -46,7 +46,6 @@ What's the purpose of life?
 ```
 
 **Important** by default, the `%%chat` command preserves the conversation to give the Agent some context, in the same way that ChatGPT works. You can "reset" its status passing the flag `--reset-conversation`.
-
 
 ```python
 %%chat --reset-conversation
@@ -59,7 +58,7 @@ How can I avoid pandas using scientific notation in outputs, and do it globally?
 
 ## Agent's role (system message) and other chat parameters
 
-By default, the Chat is started with the role: *"You're a python data science coding assistant"*. You can change that by passing something different in your first `%%chat`:
+By default, the Chat is started with the role: _"You're a python data science coding assistant"_. You can change that by passing something different in your first `%%chat`:
 
 ```ipython
 %%chat --system-message="You're a R Data Science assistant"
@@ -85,7 +84,6 @@ You can change the defaults using the `%chat_config` line magic:
 
 Invoke it without parameters to see the defaults set:
 
-
 ```python
 %chat_config
 ...
@@ -98,30 +96,26 @@ Invoke it without parameters to see the defaults set:
 * **Chat history length**: 0
 ```
 
-
 ## Other methods
 
 #### Display available models
 
 Usage:
+
 ```bash
 %chat_models [--all-models]
 ```
-
 
 ```python
 %chat_models
 ```
 
-
 ##### Available models:
 
-	- gpt-3.5-turbo-0301
-	- gpt-3.5-turbo
-
+    - gpt-3.5-turbo-0301
+    - gpt-3.5-turbo
 
 #### Display usage and accepted parameters
-
 
 ```python
 %reload_ext ipython_gpt

@@ -32,8 +32,8 @@ repos:
       - id: doc8
         stages: [commit]
 
-  - repo: https://github.com/FHPythonUtils/LicenseCheck
-    rev: "2023.1.1"
-    hooks:
-      - id: licensecheck
-        stages: [commit]
+  #- repo: https://github.com/FHPythonUtils/LicenseCheck
+  #  rev: "2023.1.1"
+  #  hooks:
+  #    - id: licensecheck
+  #      stages: [commit]

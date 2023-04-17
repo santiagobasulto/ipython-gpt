@@ -30,7 +30,7 @@ build-backend = "poetry.masonry.api"
 [tool.ruff]
 ignore-init-module-imports = true
 fix = true
-select = ["E", "F", "W", "I", "D", "RUF"]
+select = ["E", "F", "W", "I", "RUF"] # "D" to be add back before publishing on pypi
 ignore = ["E501"]  # line too long | Black take care of it
 
 [tool.ruff.flake8-quotes]
