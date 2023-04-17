@@ -10,10 +10,11 @@ ipython-gpt
    contribute
    API <api/modules>
 
-This extension allows you to use ChatGPT directly from your Jupyter Notebook or IPython Shell (`demo <https://github.com/santiagobasulto/ipython-gpt/blob/master/Demo.ipynb>__).
+This extension allows you to use ChatGPT directly from your Jupyter Notebook or IPython Shell (`demo <https://github.com/santiagobasulto/ipython-gpt/blob/master/Demo.ipynb>`__).
 
 
-![ipython-demo](https://user-images.githubusercontent.com/872296/232230492-9bc50342-9d78-4adb-8168-2f94fcbc3b73.png)
+.. image:: https://user-images.githubusercontent.com/872296/232230492-9bc50342-9d78-4adb-8168-2f94fcbc3b73.png
+   :alt: ipython demo
 
 Documentation contents
 ----------------------

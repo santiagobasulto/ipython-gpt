@@ -36,7 +36,7 @@ html_theme_options = {
         "text": project,
     },
     "use_edit_page_button": True,
-    "footer_end": ["theme-version", "pypackage-credit"],
+    "footer_end": ["theme-version"],
     "icon_links": [
         {
             "name": "GitHub",
