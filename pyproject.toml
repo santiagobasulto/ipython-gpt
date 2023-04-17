@@ -14,6 +14,7 @@ classifiers = [
     "Programming Language :: Python",
     "Topic :: Utilities",
 ]
+license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
