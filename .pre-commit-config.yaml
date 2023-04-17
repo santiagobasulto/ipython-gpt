@@ -7,12 +7,6 @@ repos:
       - id: black
         stages: [commit]
 
-  - repo: "https://github.com/commitizen-tools/commitizen"
-    rev: "v2.18.0"
-    hooks:
-      - id: commitizen
-        stages: [commit-msg]
-
   - repo: "https://github.com/kynan/nbstripout"
     rev: "0.5.0"
     hooks:
