@@ -1,20 +1,44 @@
-.. ipython-gpt documentation master file, created by
-   sphinx-quickstart on Mon Apr 17 17:04:02 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+:html_theme.sidebar_secondary.remove:
 
-Welcome to ipython-gpt's documentation!
-=======================================
+ipython-gpt
+===========
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :hidden:
+
+   usage
+   contribute
+   API <api/modules>
+
+This extension allows you to use ChatGPT directly from your Jupyter Notebook or IPython Shell (`demo <https://github.com/santiagobasulto/ipython-gpt/blob/master/Demo.ipynb>__).
 
 
+![ipython-demo](https://user-images.githubusercontent.com/872296/232230492-9bc50342-9d78-4adb-8168-2f94fcbc3b73.png)
 
-Indices and tables
-==================
+Documentation contents
+----------------------
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+The documentation contains 3 main sections:
+
+.. grid:: 1 2 3 3
+
+   .. grid-item::
+
+      .. card:: Usage
+         :link: usage.html
+
+         Usage and installation
+
+   .. grid-item::
+
+      .. card:: Contribute
+         :link: contribute.html
+
+         Help us improve the lib.
+
+   .. grid-item::
+
+      .. card:: API
+         :link: api/modules.html
+
+         Discover the lib API.
