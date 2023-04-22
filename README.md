@@ -1,5 +1,10 @@
 # IPython ChatGPT extension
 
+[![Black badge](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![prettier badge](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?logo=prettier&logoColor=white)](https://github.com/prettier/prettier)
+[![pre-commit](https://img.shields.io/badge/pre--commit-active-yellow?logo=pre-commit&logoColor=white)](https://pre-commit.com/)4
+[![test](https://img.shields.io/github/actions/workflow/status/santiagobasulto/ipython-gpt/test.yaml?logo=github&logoColor=white)](https://github.com/santiagobasulto/ipython-gpt/actions/workflows/test.yaml)
+
 This extension allows you to use ChatGPT directly from your Jupyter Notebook or IPython Shell ([Demo](https://github.com/santiagobasulto/ipython-gpt/blob/master/Demo.ipynb)).
 
 <img width="900" alt="IPython GPT, a Jupyter/IPython interface for Chat GPT" src="https://user-images.githubusercontent.com/872296/232230454-44529ea4-920e-4294-9d61-550771a4a95e.png">
@@ -9,6 +14,7 @@ This extension allows you to use ChatGPT directly from your Jupyter Notebook or 
 **Important!** This is a very early and raw version, I have a lot of things to improve regarding code quality and missing functionality. Check [this issue](https://github.com/santiagobasulto/ipython-gpt/issues/4) for a rough "roadmap".
 
 ## Installation
+
 ```python
 !pip install ipython-gpt
 ```
@@ -35,7 +41,6 @@ There are a few other ways to set the API KEY, but the envvar is the recommended
 
 The command `%%chat` interfaces with ChatGPT. It accepts multiple parameters (see Usage). Here's an example:
 
-
 ```python
 %%chat --max-tokens=25
 
@@ -46,7 +51,6 @@ What's the purpose of life?
 ```
 
 **Important** by default, the `%%chat` command preserves the conversation to give the Agent some context, in the same way that ChatGPT works. You can "reset" its status passing the flag `--reset-conversation`.
-
 
 ```python
 %%chat --reset-conversation
@@ -59,7 +63,7 @@ How can I avoid pandas using scientific notation in outputs, and do it globally?
 
 ## Agent's role (system message) and other chat parameters
 
-By default, the Chat is started with the role: *"You're a python data science coding assistant"*. You can change that by passing something different in your first `%%chat`:
+By default, the Chat is started with the role: _"You're a python data science coding assistant"_. You can change that by passing something different in your first `%%chat`:
 
 ```ipython
 %%chat --system-message="You're a R Data Science assistant"
@@ -85,7 +89,6 @@ You can change the defaults using the `%chat_config` line magic:
 
 Invoke it without parameters to see the defaults set:
 
-
 ```python
 %chat_config
 ...
@@ -98,30 +101,26 @@ Invoke it without parameters to see the defaults set:
 * **Chat history length**: 0
 ```
 
-
 ## Other methods
 
 #### Display available models
 
 Usage:
+
 ```bash
 %chat_models [--all-models]
 ```
-
 
 ```python
 %chat_models
 ```
 
-
 ##### Available models:
 
-	- gpt-3.5-turbo-0301
-	- gpt-3.5-turbo
-
+    - gpt-3.5-turbo-0301
+    - gpt-3.5-turbo
 
 #### Display usage and accepted parameters
-
 
 ```python
 %reload_ext ipython_gpt
