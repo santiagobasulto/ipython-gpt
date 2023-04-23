@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ipython-gpt"
-version = "0.0.4"
+version = "0.0.5"
 description = "A Jupyter/IPython extension to use ChatGPT"
 authors = ["Santiago Basulto <santiago.basulto@gmail.com>"]
 readme = "README.md"
