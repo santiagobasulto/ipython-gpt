@@ -3,6 +3,7 @@
 The nox run are build in isolated environment that will be stored in .nox. to force the venv update, remove the .nox/xxx folder.
 """
 import tempfile
+from pathlib import Path
 
 import nox
 
@@ -22,6 +23,7 @@ def install_poetry_groups(session: nox.Session, *groups: str) -> None:
             f"--output={requirements.name}",
             external=True,
         )
+        print(Path(requirements.name).read_text())
         session.install("-r", requirements.name)
 
 
