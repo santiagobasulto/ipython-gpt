@@ -36,6 +36,5 @@ def lint(session):
 def test(session):
     """Run all the test using the environment varialbe of the running machine."""
     install_poetry_groups(session, "test")
-    session.install(".[test]")
     test_files = session.posargs or ["tests"]
     session.run("pytest", "--color=yes", *test_files)
