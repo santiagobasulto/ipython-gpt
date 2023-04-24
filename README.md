@@ -2,10 +2,10 @@
 
 [![Black badge](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![prettier badge](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?logo=prettier&logoColor=white)](https://github.com/prettier/prettier)
-[![pre-commit](https://img.shields.io/badge/pre--commit-active-yellow?logo=pre-commit&logoColor=white)](https://pre-commit.com/)4
+[![pre-commit](https://img.shields.io/badge/pre--commit-active-yellow?logo=pre-commit&logoColor=white)](https://pre-commit.com/)
 [![test](https://img.shields.io/github/actions/workflow/status/santiagobasulto/ipython-gpt/test.yaml?logo=github&logoColor=white)](https://github.com/santiagobasulto/ipython-gpt/actions/workflows/test.yaml)
 
-This extension allows you to use ChatGPT directly from your Jupyter Notebook or IPython Shell ([Demo](https://github.com/santiagobasulto/ipython-gpt/blob/master/Demo.ipynb)).
+This (standalone, no external dependencies required) extension allows you to use ChatGPT directly from your Jupyter Notebook or IPython Shell ([Demo](https://github.com/santiagobasulto/ipython-gpt/blob/master/Demo.ipynb)).
 
 <img width="900" alt="IPython GPT, a Jupyter/IPython interface for Chat GPT" src="https://user-images.githubusercontent.com/872296/232230454-44529ea4-920e-4294-9d61-550771a4a95e.png">
 
