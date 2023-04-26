@@ -10,7 +10,9 @@ def test_api_client_auth():
 
     with patch.object(HTTPSConnection, "request") as mocked_request:
         mock = Mock(status=200)
-        mock.read.return_value = ""
+        mock.read.return_value = '{"choices": {"message": "Valid response"}}'.encode(
+            "utf-8"
+        )
         with patch.object(HTTPSConnection, "getresponse", return_value=mock):
             client = OpenAIClient("VERY SECRET KEY")
             client.request("POST", "/chat/completions", json_body=json_body)

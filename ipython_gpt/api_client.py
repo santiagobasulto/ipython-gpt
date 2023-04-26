@@ -12,15 +12,23 @@ class APIClientException(Exception):
 
 
 class APIResponseException(APIClientException):
-    def __init__(self, method, path, headers, query_params, body):
+    def __init__(self, method, path, response_status, response_body):
         self.method = method
         self.path = path
-        self.headers = headers
-        self.query_params = query_params
-        self.body = body
+        self.response_status = response_status
+        self.response_body = response_body
 
     def __str__(self):
-        return f"Failed API Request '{self.method} {self.path}'"
+        error_message = (
+            (self.response_body or {})
+            .get("error", {})
+            .get("message", "No response from API.")
+        )
+        return f"Failed API Request '{self.method} {self.path}'. Got {self.response_status}: {error_message}"
+
+
+class UnauthorizedAPIException(APIResponseException):
+    pass
 
 
 class OpenAIClient:
@@ -54,12 +62,16 @@ class OpenAIClient:
         try:
             connection.request(method, path, body, headers)
             resp = connection.getresponse()
+            resp_body = resp.read()
 
+            # TODO: this might raise an exception for an invalid body
+            content = json.loads(resp_body.decode("utf-8"))
             if 200 <= resp.status < 300:
-                resp_body = resp.read()
-                if resp_body and len(resp_body) > 0:
-                    return json.loads(resp_body.decode("utf-8"))
-            else:
-                raise APIResponseException(method, path, headers, query_params, body)
+                return content
+            if resp.status == 401:
+                raise UnauthorizedAPIException(method, path, resp.status, content)
+
+            # Catch all exception for any other not known status
+            raise APIResponseException(method, path, resp.status, content)
         finally:
             connection.close()
