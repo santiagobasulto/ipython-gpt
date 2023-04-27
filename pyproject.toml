@@ -42,10 +42,6 @@ pydata-sphinx-theme = "^0.13.3"
 sphinx-icon = "^0.2.2"
 sphinx-btn = "^0.1.2"
 
-[build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
-
 [tool.ruff]
 ignore-init-module-imports = true
 fix = true

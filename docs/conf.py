@@ -10,10 +10,10 @@ https://www.sphinx-doc.org/en/master/usage/configuration.html
 from datetime import datetime
 
 # -- Project information -------------------------------------------------------
-project = 'ipython-gpt'
-copyright = f'2023-{datetime.now().year}, Santiago Basulto'
-author = 'Santiago Basulto'
-release = '0.0.4'
+project = "ipython-gpt"
+copyright = f"2023-{datetime.now().year}, Santiago Basulto"
+author = "Santiago Basulto"
+release = "0.0.4"
 
 # -- General configuration -----------------------------------------------------
 extensions = [
@@ -26,7 +26,7 @@ extensions = [
     "sphinxcontrib.btn",
 ]
 templates_path = ["_template"]
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 # -- Options for HTML output ---------------------------------------------------
 html_theme = "pydata_sphinx_theme"

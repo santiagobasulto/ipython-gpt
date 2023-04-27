@@ -41,3 +41,13 @@ def test(session):
     install_poetry_groups(session, "test")
     test_files = session.posargs or ["tests"]
     session.run("pytest", "--color=yes", *test_files)
+
+
+@nox.session(reuse_venv=True)
+def docs(session):
+    """Build a static version of the documentation"""
+    build = session.posargs.pop() if session.posargs else "html"
+    session.install(".")
+    install_poetry_groups(session, "docs")
+    session.run("sphinx-apidoc", "-o", "docs/api", "ipython_gpt")
+    session.run("sphinx-build", "-v", "-b", build, "docs", f"docs/_build/{build}")
