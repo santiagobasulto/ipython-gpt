@@ -6,7 +6,6 @@ Thank you for your help improving **ipython-gpt**!
 **ipython-gpt** uses `nox <https://nox.thea.codes/en/stable/>`__ to automate several development-related tasks.
 Currently, the project uses four automation processes (called sessions) in ``noxfile.py``:
 
--   ``mypy``: to perform a mypy check on the lib;
 -   ``test``: to run the test with pytest;
 -   ``docs``: to build the documentation in the ``build`` folder;
 -   ``lint``: to run the pre-commits in an isolated environment

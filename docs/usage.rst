@@ -34,7 +34,7 @@ ChatGPT API
 
 The command :code:`%%chat` interfaces with ChatGPT. It accepts multiple parameters (see Usage). Here's an example:
 
-.. code-block:: python
+.. code-block:: ipython
 
     %%chat --max-tokens=25
 
@@ -45,7 +45,7 @@ The command :code:`%%chat` interfaces with ChatGPT. It accepts multiple paramete
 **Important** by default, the :code:`%%chat` command preserves the conversation to give the Agent some context, in the same way that ChatGPT works. You can "reset" its status passing the flag :code:`--reset-conversation`.
 
 
-.. code-block:: python
+.. code-block:: ipython
 
     %%chat --reset-conversation
 
@@ -84,7 +84,7 @@ You can change the defaults using the :code:`%chat_config` line magic:
 
 Invoke it without parameters to see the defaults set:
 
-.. code-block:: python
+.. code-block:: ipython
 
     %chat_config
     ...
@@ -102,7 +102,7 @@ Other methods
 Display available models
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: ipyhton
+.. code-block:: ipython
 
     %chat_models [--all-models]
 
