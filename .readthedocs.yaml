@@ -7,13 +7,13 @@ build:
   tools:
     python: "3.10"
   jobs:
+    # poetry groups are not supported by RDT yet
+    post_install:
+      - pip install poetry
+      - poetry config virtualenvs.create false
+      - poetry install --with docs
     pre_build:
       - sphinx-apidoc -o docs/api ipython_gpt
 
 sphinx:
   configuration: docs/conf.py
-
-python:
-  install:
-    - method: pip
-      path: .
