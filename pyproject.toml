@@ -1,3 +1,7 @@
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
 [tool.poetry]
 name = "ipython-gpt"
 version = "0.0.6"
@@ -29,6 +33,14 @@ nox = "^2022.11.21"
 [tool.poetry.group.test.dependencies]
 pytest = "^7.3.1"
 pytest-mock = "^3.10.0"
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^6.1.3"
+sphinx-design = "^0.4.1"
+sphinx-copybutton = "^0.5.2"
+pydata-sphinx-theme = "^0.13.3"
+sphinx-icon = "^0.2.2"
+sphinx-btn = "^0.1.2"
 
 [build-system]
 requires = ["poetry>=0.12"]
