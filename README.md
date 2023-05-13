@@ -35,6 +35,12 @@ $ OPENAI_API_KEY=[YOUR-KEY] jupyter lab
 $ OPENAI_API_KEY=[YOUR-KEY] ipython
 ```
 
+If you're working on Google Colab, you can use the `%env` magic method (keep in mind that if you don't delete the cell, your key will be visible):
+
+```python
+%env OPENAI_API_KEY=sk-W8b0... your key ...
+```
+
 There are a few other ways to set the API KEY, but the envvar is the recommended one.
 
 ## ChatGPT API
