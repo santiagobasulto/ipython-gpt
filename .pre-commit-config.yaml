@@ -26,12 +26,14 @@ repos:
       - id: ruff
         stages: [commit]
 
-  - repo: https://github.com/PyCQA/doc8
-    rev: "v1.1.1"
-    hooks:
-      - id: doc8
-        stages: [commit]
+  # silence until we use myst_nb directly
+  #- repo: https://github.com/PyCQA/doc8
+  #  rev: "v1.1.1"
+  #  hooks:
+  #    - id: doc8
+  #      stages: [commit]
 
+  # silence until we have a license file
   #- repo: https://github.com/FHPythonUtils/LicenseCheck
   #  rev: "2023.1.1"
   #  hooks:
