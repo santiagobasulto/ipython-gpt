@@ -72,10 +72,16 @@ class ChatCommand(BaseIPythonGPTCommand):
             help="The maximum number of tokens to generate in the chat completion.",
             type=int,
         )
+        parser.add_argument(
+            "--stream",
+            action="store_true",
+            help="Stream output to the console.",
+        )
         return parser
 
     def _execute(self, client, args, line, cell=None):
         message_history = self.context["message_history"]
+        stream = args.stream or False
         if args.reset_conversation:
             message_history = []
 
@@ -90,7 +96,7 @@ class ChatCommand(BaseIPythonGPTCommand):
         messages = message_history + [{"role": "user", "content": cell}]
 
         model = args.model or self.context["config"]["default_model"]
-        json_body = {"model": model, "messages": messages}
+        json_body = {"model": model, "messages": messages, "stream": stream}
 
         if args.temperature:
             json_body["temperature"] = args.temperature
