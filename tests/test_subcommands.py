@@ -28,8 +28,8 @@ def test_basic_chat_command():
                     {"role": "system", "content": SYSTEM_MESSAGE},
                     {"role": "user", "content": "Testing message"},
                 ],
-                "stream": False,
             },
+            stream=False,
         )
 
 def test_streaming_chat_command():
@@ -56,6 +56,6 @@ def test_streaming_chat_command():
                     {"role": "system", "content": SYSTEM_MESSAGE},
                     {"role": "user", "content": "Testing message"},
                 ],
-                "stream": True,
             },
+            stream=True,
         )

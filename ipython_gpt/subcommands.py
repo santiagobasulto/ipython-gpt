@@ -96,14 +96,14 @@ class ChatCommand(BaseIPythonGPTCommand):
         messages = message_history + [{"role": "user", "content": cell}]
 
         model = args.model or self.context["config"]["default_model"]
-        json_body = {"model": model, "messages": messages, "stream": stream}
+        json_body = {"model": model, "messages": messages}
 
         if args.temperature:
             json_body["temperature"] = args.temperature
         if args.max_tokens:
             json_body["max_tokens"] = args.max_tokens
 
-        resp = client.request("POST", "/chat/completions", json_body=json_body)
+        resp = client.request("POST", "/chat/completions", json_body=json_body, stream=stream)
         chat_response = resp["choices"][0]["message"]["content"]
         message_history += [
             {"role": "assistant", "content": chat_response},
