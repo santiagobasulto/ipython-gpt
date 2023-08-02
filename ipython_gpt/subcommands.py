@@ -1,7 +1,9 @@
 import argparse
 import shlex
+import json
+from typing import Generator
 
-from .api_client import OpenAIClient
+from .api_client import IPythonGPTResponse, OpenAIClient
 
 
 class BaseIPythonGPTCommand:
@@ -50,7 +52,10 @@ class BaseIPythonGPTCommand:
         assert bool(openai_api_key), "OPENAI_API_KEY missing"
         client = OpenAIClient(openai_api_key)
         results = self._execute(client, args, line, cell)
-        return results
+        if isinstance(results, Generator):
+            yield from results
+        else:
+            yield from [results]
 
 
 class ChatCommand(BaseIPythonGPTCommand):
@@ -104,12 +109,30 @@ class ChatCommand(BaseIPythonGPTCommand):
             json_body["max_tokens"] = args.max_tokens
 
         resp = client.request("POST", "/chat/completions", json_body=json_body, stream=stream)
-        chat_response = resp["choices"][0]["message"]["content"]
+        # TEST ME
+        yield from self._from_wrapped_response(resp, message_history)
+ 
+ 
+    def _from_wrapped_response(self, wrapper_generator, message_history):
+        message = ""
+        for wrapper in wrapper_generator:
+            assert isinstance(wrapper, IPythonGPTResponse)
+            if wrapper.is_streaming:
+                json_line = wrapper.data
+                if 'choices' in json_line:
+                    content = json_line['choices'][0]['delta'].get('content', '') or ''
+                    # print(content, end="")
+                    message += content
+                    yield content
+            else:
+                json_content = wrapper.data
+                message = json_content["choices"][0]["message"]["content"]
+                yield message 
+
         message_history += [
-            {"role": "assistant", "content": chat_response},
+            {"role": "assistant", "content": message},
         ]
         self.context["message_history"] = message_history
-        return chat_response
 
 
 class ConfigCommand(BaseIPythonGPTCommand):
@@ -146,9 +169,13 @@ class ChatModelsBrowserCommand(BaseIPythonGPTCommand):
 
     def _execute(self, client, args, line, cell):
         resp = client.request("GET", "/models")
+        resp = next(resp)
+        assert isinstance(resp, IPythonGPTResponse)
+        assert resp.is_streaming is False
+        json_data = resp.data
         models = [
             m["id"]
-            for m in resp["data"]
+            for m in json_data["data"]
             if args.all_models or m["id"].startswith("gpt")
         ]
         formatted_models = "\n".join([f"\t- {model}" for model in models])

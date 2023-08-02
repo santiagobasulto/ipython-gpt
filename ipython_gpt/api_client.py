@@ -31,6 +31,10 @@ class APIResponseException(APIClientException):
 class UnauthorizedAPIException(APIResponseException):
     pass
 
+class IPythonGPTResponse():
+    def __init__(self, data, is_streaming=False):
+        self.is_streaming = is_streaming
+        self.data = data
 
 class OpenAIClient:
     def __init__(self, openai_api_key, api_version=DEFAULT_API_VERSION):
@@ -44,9 +48,6 @@ class OpenAIClient:
             "/v"
         ), "API Version must be specified at moment of client creation"
 
-        # connection = http.client.HTTPSConnection(
-        #     host=OPEN_AI_API_HOST, port=OPEN_AI_API_PORT
-        # )
 
         headers = headers or {}
         headers.setdefault("Authorization", f"Bearer {self.openai_api_key}")
@@ -54,27 +55,32 @@ class OpenAIClient:
 
         body = None
         if json_body:
+            json_body = json_body.copy()
+            if stream:
+                json_body["stream"] = True
             body = json.dumps(json_body)
-
         url = f"https://{OPEN_AI_API_HOST}:{OPEN_AI_API_PORT}/{self.api_version}{path}"
         if query_params is not None:
             url += "?" + urllib.parse.urlencode(query_params)
-
-        # connection.request(method, path, body, headers)
         resp = requests.request(method, url, headers=headers, data=body, stream=stream)
-        # resp = connection.getresponse()
+
         if 200 <= resp.status_code < 300:
-            if stream:
-                resp_body = resp.read()
-                print(resp_body.decode("utf-8"))
-                pass # read using stream
-                return resp.iter_lines()
-            else:
-                # TODO: this might raise an exception for an invalid body
-                # content = json.loads(resp_body.decode("utf-8"))
-                return resp.json()
+            yield from self._post_process_response(resp, stream=stream)
+            return
         if resp.status_code == 401:
             raise UnauthorizedAPIException(method, path, resp.status_code, resp.json())
 
         # Catch all exception for any other not known status
         raise APIResponseException(method, path, resp.status_code, resp.json())
+
+    def _post_process_response(self, response, stream=False):
+        """The pattern is borrowed from studying OpenAI's code for api-requestor"""
+        if stream and "text/event-stream" in response.headers.get("Content-Type", ""):
+            # TODO: Better handle errors for streaming responses as well.
+            for line in response.iter_lines():
+                decoded_line = line.decode("utf-8")
+                if '[DONE]' not in decoded_line and decoded_line:
+                    json_line = json.loads(decoded_line[len('data: '):])
+                    yield IPythonGPTResponse(json_line, True)
+        else:
+            yield IPythonGPTResponse(response.json(), False)
