@@ -25,7 +25,8 @@ class IPythonGPT(Magics):
     def chat(self, line, cell):
         cmd = ChatCommand(self._context)
         result = cmd.execute(line, cell)
-        self.display.display(result)
+        for i in result:
+            self.display.display(i)
 
     @line_magic
     def chat_config(self, line):
@@ -37,7 +38,8 @@ class IPythonGPT(Magics):
     def chat_models(self, line):
         cmd = ChatModelsBrowserCommand(self._context)
         result = cmd.execute(line)
-        self.display.display(result)
+        for i in result:
+            self.display.display(i)
 
 
 name = "ipython_gpt"

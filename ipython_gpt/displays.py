@@ -16,7 +16,7 @@ class NotebookDisplay(BaseDisplay):
 
 class ShellDisplay(BaseDisplay):
     def display(self, results):
-        print(results)
+        print(results, end="", flush=True)
 
 
 DISPLAY_METHODS = {

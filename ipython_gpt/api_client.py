@@ -1,6 +1,7 @@
-import http.client
+# import http.client
 import json
 import urllib.parse
+import requests 
 
 OPEN_AI_API_HOST = "api.openai.com"
 OPEN_AI_API_PORT = 443
@@ -30,22 +31,23 @@ class APIResponseException(APIClientException):
 class UnauthorizedAPIException(APIResponseException):
     pass
 
+class IPythonGPTResponse():
+    def __init__(self, data, is_streaming=False):
+        self.is_streaming = is_streaming
+        self.data = data
 
 class OpenAIClient:
     def __init__(self, openai_api_key, api_version=DEFAULT_API_VERSION):
         self.openai_api_key = openai_api_key
         self.api_version = api_version
 
-    def request(self, method, path, headers=None, query_params=None, json_body=None):
+    def request(self, method, path, headers=None, query_params=None, json_body=None, stream=False):
         method = method.upper()
         assert path.startswith("/"), "Invalid path"
         assert not path.startswith(
             "/v"
         ), "API Version must be specified at moment of client creation"
 
-        connection = http.client.HTTPSConnection(
-            host=OPEN_AI_API_HOST, port=OPEN_AI_API_PORT
-        )
 
         headers = headers or {}
         headers.setdefault("Authorization", f"Bearer {self.openai_api_key}")
@@ -53,25 +55,32 @@ class OpenAIClient:
 
         body = None
         if json_body:
+            json_body = json_body.copy()
+            if stream:
+                json_body["stream"] = True
             body = json.dumps(json_body)
-
-        path = f"/{self.api_version}" + path
+        url = f"https://{OPEN_AI_API_HOST}:{OPEN_AI_API_PORT}/{self.api_version}{path}"
         if query_params is not None:
-            path += "?" + urllib.parse.urlencode(query_params)
+            url += "?" + urllib.parse.urlencode(query_params)
+        resp = requests.request(method, url, headers=headers, data=body, stream=stream)
 
-        try:
-            connection.request(method, path, body, headers)
-            resp = connection.getresponse()
-            resp_body = resp.read()
+        if 200 <= resp.status_code < 300:
+            yield from self._post_process_response(resp, stream=stream)
+            return
+        if resp.status_code == 401:
+            raise UnauthorizedAPIException(method, path, resp.status_code, resp.json())
 
-            # TODO: this might raise an exception for an invalid body
-            content = json.loads(resp_body.decode("utf-8"))
-            if 200 <= resp.status < 300:
-                return content
-            if resp.status == 401:
-                raise UnauthorizedAPIException(method, path, resp.status, content)
+        # Catch all exception for any other not known status
+        raise APIResponseException(method, path, resp.status_code, resp.json())
 
-            # Catch all exception for any other not known status
-            raise APIResponseException(method, path, resp.status, content)
-        finally:
-            connection.close()
+    def _post_process_response(self, response, stream=False):
+        """The pattern is borrowed from studying OpenAI's code for api-requestor"""
+        if stream and "text/event-stream" in response.headers.get("Content-Type", ""):
+            # TODO: Better handle errors for streaming responses as well.
+            for line in response.iter_lines():
+                decoded_line = line.decode("utf-8")
+                if '[DONE]' not in decoded_line and decoded_line:
+                    json_line = json.loads(decoded_line[len('data: '):])
+                    yield IPythonGPTResponse(json_line, True)
+        else:
+            yield IPythonGPTResponse(response.json(), False)
